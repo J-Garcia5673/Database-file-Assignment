@@ -37,13 +37,16 @@ struct Person *search(string id) {
             p2->income = stof(incomeStr); // convert incomeStr to float
             return p2; // return pointer to Person struct
         }
-        file.seekg(40, ios::cur); // why 40?
+        file.seekg(40, ios::cur); // why 40?  
     }
     return 0;
 }
 /*
 Note: the line in bold where file.seekg uses 40 bytes from current file position. Explain
 why it is 40?
+
+ANSWER: The data in each stuct is 40 bytes long. The pointer has to move from struct to struct to read the data correctly.
+
 The next function is get an employee information from the employee id, the function
 get_employee ask the user to enter the employee id and call the function search and display
 output.
@@ -51,6 +54,18 @@ output.
 
 void get_employee() {
     string empId;
+    cout << "Enter employee ID: ";
+    cin >> empId;
+    Person* emp = search(empId);
+    if (emp == NULL){
+        cout << "Employee ID was not found." << endl;
+    }
+    else {
+        cout << "Emplyee Id was found: " << endl;
+        cout << "Employee ID: " << emp->id << endl;
+        cout << "Employee Name: " << emp->firstName << "" << emp->lastName<< endl;
+        cout << "Employee Income: " << emp->income << endl;
+    }
     // Ask the user to enter the employee id to get its information, complete code below
     // Then call the function search with the employee id as a parameter
     // Remember the search function returns a pointer to the struct ‘Person’
@@ -95,16 +110,12 @@ void new_employee() {
         cout << "\n*** New Employee ***\n";
         cout << "Enter employee id (-1 to end): ";
         cin >> empId;
-        if (empId == "-1") break; // stop when user enters -1
-        // search if the employee exist, call to search function
-        // Remember search function return a pointer to struct ‘Person’ if the employee
-        //exist
-        // otherwise, it returns null pointer (i.e. zero pointer)
-        // If the employee id exist, then exit from the function by calling return.
-        // If employee id does not exist, then continue ask the user about the employee
-        // information: first name, last name, and income.
-        // complete code
-        // Save data to Person struct
+        if (empId == "-1") break;
+        Person* emp = search(empId);
+        if (emp != NULL){
+            cout << "Employee ID already exsitst, try again" << endl;
+            return;
+        }
         Person p;
         p.id = empId;
         cout << "Enter first name: ";
