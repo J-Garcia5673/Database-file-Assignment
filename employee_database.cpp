@@ -61,7 +61,7 @@ void get_employee() {
         cout << "Employee ID was not found." << endl;
     }
     else {
-        cout << "Emplyee Id was found: " << endl;
+        cout << "Emplyee Id was found! " << endl;
         cout << "Employee ID: " << emp->id << endl;
         cout << "Employee Name: " << emp->firstName << "" << emp->lastName<< endl;
         cout << "Employee Income: " << emp->income << endl;
